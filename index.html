@@ -58,8 +58,8 @@ svg * { vector-effect: non-scaling-stroke; }
 .btn.ghost { background: var(--p2); color: var(--t); border: 1px solid var(--ln); }
 
 /* strip under the bar */
-.strip { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 18px 16px 16px; border-bottom: 1px solid var(--ln); }
-.strip h1 { margin: 0; font: 500 clamp(22px, 2.6vw, 32px)/1.1 var(--sans); letter-spacing: -.02em; }
+.strip { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; padding: 18px 16px 16px; border-bottom: 1px solid var(--ln); }
+.strip h1 { margin: 0; font: 500 clamp(22px, 2.6vw, 32px)/1.1 var(--sans); letter-spacing: -.02em; max-width: 30ch; text-wrap: balance; }
 .strip p { margin: 0; color: var(--tm); }
 
 /* the app */
@@ -209,7 +209,7 @@ input[type=range]:disabled { opacity: .35; }
 }
 
 @media (max-width: 900px) { .stat { display: none; } }
-@media (max-width: 720px) { .tabs { display: none; } }
+@media (max-width: 860px) { .tabs { display: none; } }
 @media (max-width: 1000px) {
   .app { grid-template-columns: 1fr; height: auto; min-height: 0; max-height: none; }
   .canvas { height: min(68vh, 560px); height: min(68svh, 560px); order: -1; }
@@ -337,6 +337,91 @@ input[type=range]:disabled { opacity: .35; }
 .sh-toast::before { content: "> "; color: var(--gel); }
 #sh-send:disabled { opacity: .5; }
 @media (max-width: 560px) { .slot { margin: 0 -6px; } .stamp { right: 12px; bottom: 40px; font-size: 9px; } .tk-track span { padding: 12px 18px; font-size: 12px; } }
+/* ---------- passed around ---------- */
+.soon { font: 400 11px var(--mono); font-style: normal; color: var(--gel); border: 1px solid rgba(255,194,26,.35); border-radius: 4px; padding: 1px 5px; margin-left: 6px; white-space: nowrap; vertical-align: 1px; }
+.pass { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 12px; }
+.pass .panel .bd { display: grid; gap: 8px; align-content: start; }
+.pass .big { grid-row: span 2; }
+.pass .big .bd { gap: 14px; }
+.link-demo { border: 1px solid var(--ln2); border-radius: 10px; overflow: hidden; background: var(--p0); }
+.link-demo .bar { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--ln); font: 400 12px var(--mono); color: var(--tm); }
+.link-demo .bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--p3); }
+.link-demo .bar b { font-weight: 400; color: var(--t); background: var(--p2); border-radius: 5px; padding: 3px 8px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.link-demo .pg { padding: 12px; display: grid; gap: 8px; }
+.link-demo .row { display: flex; justify-content: space-between; gap: 10px; font: 400 12px var(--mono); color: var(--tm); border-bottom: 1px solid var(--ln); padding-bottom: 6px; }
+.link-demo .row span:last-child { color: var(--t); }
+.link-demo .made { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; color: var(--tm); padding-top: 4px; }
+.link-demo .made a { color: #0B0B0A; background: var(--gel); border-radius: 6px; padding: 5px 9px; text-decoration: none; font-weight: 500; }
+.link-demo svg { width: 100%; height: auto; display: block; }
+.pin-demo { position: relative; border: 1px solid var(--ln); border-radius: 8px; height: 110px; background: linear-gradient(var(--ln) 1px, transparent 1px) 0 0 / 20px 20px, linear-gradient(90deg, var(--ln) 1px, transparent 1px) 0 0 / 20px 20px; overflow: hidden; }
+.pin-demo .pn { position: absolute; width: 22px; height: 22px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--t); display: grid; place-items: center; cursor: pointer; border: 0; padding: 0; }
+.pin-demo .pn::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--p0); }
+.pin-demo .pn[aria-pressed="true"] { background: var(--gel); }
+.pin-demo .ph2 { position: absolute; right: 8px; top: 8px; bottom: 8px; width: 44%; border-radius: 6px; background: var(--p2) center / cover; border: 1px solid var(--ln2); display: flex; align-items: end; padding: 6px; font: 400 11px var(--mono); color: var(--t); text-shadow: 0 1px 4px #000; transition: opacity .3s; }
+@media (max-width: 1000px) { .pass { grid-template-columns: 1fr 1fr; } .pass .big { grid-column: 1 / -1; grid-row: auto; } }
+@media (max-width: 560px) { .pass { grid-template-columns: 1fr; } }
+
+/* ---------- hire order ---------- */
+.orow { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 32px; align-items: start; }
+.otext .lead { font-size: 17px; line-height: 1.55; margin: 0 0 18px; color: var(--t); max-width: 44ch; }
+.otext p { color: var(--tm); max-width: 46ch; }
+.otext .to { display: grid; gap: 6px; margin: 18px 0 14px; max-width: 360px; }
+.otext .to label { font: 400 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--tm); }
+.otext .to input { all: unset; box-sizing: border-box; height: 42px; padding: 0 12px; border: 1px solid var(--ln2); border-radius: 8px; background: var(--p1); color: var(--t); font-size: 15px; }
+.otext .to input:focus-visible { border-color: var(--gel); }
+.order { background: #F4F2EC; color: rgba(11,11,10,.88); border-radius: 6px; padding: 22px 22px 16px; display: grid; gap: 12px; font: 400 12px/1.35 var(--mono); box-shadow: 0 24px 70px rgba(0,0,0,.5); transform: rotate(-.6deg); }
+.order .hdr { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.order .hdr .wm { font-size: 16px; color: #0B0B0A; }
+.order .m { color: rgba(11,11,10,.48); }
+.order .meta { display: grid; grid-template-columns: auto 1fr; gap: 3px 14px; }
+.order hr { border: 0; height: 1px; background: rgba(11,11,10,.16); margin: 0; }
+.order .grp { font-size: 10px; letter-spacing: .1em; color: rgba(11,11,10,.48); margin-top: 4px; }
+.order .ln { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 3px 0; border-bottom: 1px solid rgba(11,11,10,.08); }
+.order .ln .nm small { color: rgba(11,11,10,.45); margin-left: 6px; }
+.order .q { display: inline-flex; align-items: center; gap: 2px; }
+.order .q button { width: 24px; height: 24px; border-radius: 5px; border: 1px solid rgba(11,11,10,.18); background: transparent; color: inherit; font: inherit; cursor: pointer; padding: 0; line-height: 1; }
+.order .q button:hover { background: rgba(11,11,10,.06); }
+.order .q b { font-weight: 500; min-width: 26px; text-align: center; font-variant-numeric: tabular-nums; }
+.order .q b.bump { animation: bump .35s; }
+@keyframes bump { 40% { transform: scale(1.35); } }
+.order .gen { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #0B0B0A; color: #F4F2EC; border-radius: 4px; padding: 9px 10px; }
+.order .gen b { font-weight: 500; color: var(--gel); font-size: 15px; }
+.order .foot2 { display: flex; justify-content: space-between; gap: 10px; font-size: 10px; color: rgba(11,11,10,.45); }
+.o-toast { min-height: 1.4em; color: var(--gel); font-size: 12px; }
+@media (max-width: 900px) { .orow { grid-template-columns: 1fr; } .order { transform: none; } }
+@media (max-width: 420px) { .order { padding: 16px 14px 12px; font-size: 11px; } }
+
+/* ---------- price ---------- */
+.pr-top { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.pr-top .lead { max-width: 34em; margin: 0; color: var(--tm); }
+.pr-top .segs { margin: 0; }
+.pr-top .segs small { color: var(--gel); margin-left: 6px; font: 500 11px var(--mono); }
+.tiers { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 12px; align-items: stretch; }
+.tier { position: relative; background: var(--p1); border: 1px solid var(--ln); border-radius: 10px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+.tier .hd { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--ln); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--tm); }
+.tier .hd .led { width: 8px; height: 8px; border-radius: 50%; background: var(--p3); box-shadow: inset 0 0 0 1px var(--ln2); }
+.tier .bd { padding: 18px 14px 14px; display: grid; gap: 14px; flex: 1; align-content: start; position: relative; z-index: 1; }
+.tier .amt { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.tier .amt b { font: 500 clamp(44px, 9vw, 64px)/.95 var(--sans); letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
+.tier .amt > span { color: var(--tm); font-size: 14px; }
+.tier .note { margin: 0; color: var(--tm); font-size: 14px; line-height: 1.5; }
+.tier ul { list-style: none; margin: 0; padding: 0; }
+.tier li { display: grid; grid-template-columns: 26px 1fr; gap: 8px; padding: 9px 0; border-top: 1px solid var(--ln); font-size: 14px; line-height: 1.35; }
+.tier li .n { font: 500 11px/1.6 var(--mono); color: var(--tf); }
+.tier .ft { padding: 12px 14px; border-top: 1px solid var(--ln); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; color: var(--tm); font-size: 13px; position: relative; z-index: 1; }
+.tier .ft .btn { padding: 10px 14px; font-size: 14px; }
+.tier.pro { border-color: rgba(255,194,26,.35); }
+.tier.pro .hd { color: var(--t); }
+.tier.pro .hd .led { background: var(--gel); box-shadow: 0 0 10px var(--gel), 0 0 2px var(--gel); }
+.tier.pro li .n { color: var(--gel); }
+.tier.pro .btn { background: var(--gel); color: #0B0B0A; }
+.tier.pro::before { content: ""; position: absolute; left: 50%; top: -40px; width: 140%; height: 120%; transform: translateX(-50%); background: radial-gradient(50% 60% at 50% 0%, rgba(255,194,26,.2), rgba(255,194,26,.05) 55%, rgba(255,194,26,0) 75%); opacity: .55; transition: opacity .6s var(--ease); pointer-events: none; }
+.tier.pro.lit::before { opacity: 1; }
+.tier .amt b .ct { display: inline-block; transition: opacity .25s, transform .35s var(--ease); }
+.tier .amt b .ct.sw { opacity: 0; transform: translateY(-6px); }
+.pr-small { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 14px; color: var(--tm); font-size: 13px; }
+.pr-small a { color: var(--t); }
+@media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } .tier.pro { order: -1; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } .paper .rv { opacity: 1; transform: none; } .draw use { stroke-dashoffset: 0; } }
 </style>
 
@@ -350,7 +435,7 @@ input[type=range]:disabled { opacity: .35; }
 
 <header class="top">
   <a class="brand" href="#plot" aria-label="Lampwerk"><svg class="mark" style="height:22px;width:14.8px;color:var(--t)" viewBox="0 0 648 960" aria-hidden="true"><use href="#mark"/></svg><span class="wm">Lampwerk</span></a>
-  <nav class="tabs" id="tabs"><a href="#plot" class="cur">Plot</a><a href="#ar">AR</a><a href="#features">Features</a><a href="#compare">Compare</a><a href="#sheet">Sheet</a></nav>
+  <nav class="tabs" id="tabs"><a href="#plot" class="cur">Plot</a><a href="#ar">AR</a><a href="#features">Features</a><a href="#compare">Compare</a><a href="#sheet">Sheet</a><a href="#order">Order</a><a href="#price">Price</a></nav>
   <span class="sp"></span>
   <span class="stat mono"><i></i>Offline ready · 230 V</span>
   <a class="btn ghost" href="support/">Support</a>
@@ -358,7 +443,7 @@ input[type=range]:disabled { opacity: .35; }
 </header>
 
 <div class="strip" id="plot">
-  <h1>Light, before you get there.</h1>
+  <h1>Walk the room, tag it in AR, walk out with a plan, kit list and power you can send.</h1>
   <p>Lighting plots for iPhone. The one below works, so drag a lamp.</p>
 </div>
 
@@ -397,6 +482,7 @@ input[type=range]:disabled { opacity: .35; }
       </ol>
       <div class="arnotes">
         <p><span class="mono tm">LiDAR</span>On an iPhone Pro with LiDAR you see the room as a wireframe while it scans, so you know which corners it has got.</p>
+        <p><span class="mono tm">No LiDAR</span>Any recent iPhone can tag. Without LiDAR it tags from the floor alone, a little rougher, so nobody on the crew is locked out. <em class="soon">Coming</em></p>
         <p><span class="mono tm">Floor plan</span>If the location sent a floor plan, tap two spots on it you can find in the room, like a door frame and a corner, then tag the same two in AR. The lamps land on the plan.</p>
       </div>
     </div>
@@ -429,6 +515,36 @@ input[type=range]:disabled { opacity: .35; }
       <div class="bd"><h3>Sheet, image or text</h3><p>An A4 PDF with the plan, gear list, head heights and power. Or the plan as an image, or a text list with one line per head for WhatsApp. You get one last look at the names before it goes. <a href="#sheet">See the sheet filled in from your plot.</a></p></div></div>
     <div class="panel"><div class="hd"><span>Floor plan</span><span class="mono">Photo · PDF</span></div>
       <div class="bd"><h3>Plot over the location's plan</h3><p>Add the plan from Photos or Files, PDFs included, and set the room size in metres. It sits faintly under the lamps, and AR tags can be lined up with it.</p></div></div>
+  </div>
+</section>
+
+<section class="sec" id="pass">
+  <div class="sh"><h2>Made to be passed around</h2><span class="tag">Link · offline · pins</span></div>
+  <div class="pass">
+    <div class="panel big"><div class="hd"><span>Live link</span><span class="mono" style="color:var(--gel)">Free</span></div>
+      <div class="bd">
+        <h3>Send a link. It opens in any browser.</h3>
+        <p>The best boy, the genny op and production open it on any phone, Android too, with no app and no sign-up. They see the plan, the kit list and the power, and it updates when you move a lamp.</p>
+        <div class="link-demo" aria-hidden="true">
+          <div class="bar"><i></i><b>lampwerk.com/p/kitchen-night</b></div>
+          <div class="pg">
+            <svg id="lk-plan" viewBox="0 0 240 110"></svg>
+            <div class="row"><span>Kitchen night · wide</span><span id="lk-on">3 of 4 on</span></div>
+            <div class="row"><span>Power</span><span id="lk-pw">0.0 A</span></div>
+            <div class="made"><span>Made with Lampwerk</span><a href="#price" tabindex="-1">Get the app</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="ft">Every link sent shows someone new what Lampwerk does. <em class="soon">Coming</em></div></div>
+    <div class="panel"><div class="hd"><span>Offline</span><span class="mono">No signal</span></div>
+      <div class="bd"><h3>Works in the basement</h3><p>Everything works with no signal: plotting, the maths, the sheet and the order. The link catches up once you're back above ground.</p></div></div>
+    <div class="panel"><div class="hd"><span>Recce pins</span><span class="mono">Photos</span></div>
+      <div class="bd"><div class="pin-demo" id="pins"><button type="button" class="pn" style="left:18%;top:28%" data-c="Window · north" data-bg="linear-gradient(160deg,#cfd8de,#7d8a93 55%,#2a2f33)" aria-pressed="true" aria-label="Window pin"></button><button type="button" class="pn" style="left:40%;top:62%" data-c="16 A socket" data-bg="radial-gradient(circle at 50% 45%,#e9e6dc 0 14%,#8f8b80 15% 22%,#3a3833 23%)" aria-pressed="false" aria-label="Socket pin"></button><button type="button" class="pn" style="left:10%;top:70%" data-c="Genny spot · yard" data-bg="linear-gradient(180deg,#9aa39a,#59624f 60%,#2d3128)" aria-pressed="false" aria-label="Genny spot pin"></button><div class="ph2" id="pin-ph" style="background-image:linear-gradient(160deg,#cfd8de,#7d8a93 55%,#2a2f33)">Window · north</div></div>
+        <h3>Pin recce photos to the plan</h3><p>The window, the sockets, the genny spot. Tap a pin to see what's there. <em class="soon">Coming</em></p></div></div>
+    <div class="panel"><div class="hd"><span>For DPs</span><span class="mono">Diagram</span></div>
+      <div class="bd"><h3>A clean lighting diagram</h3><p>Camera, talent and lamps with labels, black on white, ready for a treatment or a deck. <em class="soon">Coming</em></p></div></div>
+    <div class="panel"><div class="hd"><span>Any iPhone</span><span class="mono">AR</span></div>
+      <div class="bd"><h3>No Pro phone needed</h3><p>LiDAR makes it sharper, but any recent iPhone can tag the set from the floor. <em class="soon">Coming</em></p></div></div>
   </div>
 </section>
 
@@ -481,6 +597,76 @@ input[type=range]:disabled { opacity: .35; }
       </div>
     </div>
   </div>
+</section>
+
+<section class="sec" id="order">
+  <div class="sh"><h2>The hire order</h2><span class="tag">Plot to kit house · Pro</span></div>
+  <div class="orow">
+    <div class="otext">
+      <p class="lead">The plot already knows the heads. Lampwerk adds the stands, cable, distro and a genny size, and turns it into an order for your kit house.</p>
+      <p>Every number can be changed before it goes. It sends as a PDF from your own Mail or WhatsApp, so it comes from you and the hire desk can reply as usual.</p>
+      <p>It's built from the plot at the top. Add or move a lamp there and the order changes with it. <em class="soon">Coming</em></p>
+      <div class="to"><label for="o-to">Kit house</label><input id="o-to" type="text" placeholder="Your usual hire desk" autocomplete="off" maxlength="40"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" id="o-send" style="padding:10px 14px;font-size:14px">Send as PDF</button><button type="button" class="btn ghost" id="o-reset" style="padding:10px 14px;font-size:14px">Back to the plot's numbers</button></div>
+      <p class="mono o-toast" id="o-toast" aria-live="polite"></p>
+    </div>
+    <div class="order" id="order-doc">
+      <div class="hdr"><span class="wm">Hire order</span><span class="m">Lampwerk</span></div>
+      <div class="meta"><span class="m">To</span><span id="o-to-v">Your usual hire desk</span><span class="m">Job</span><span>Int. kitchen, night · 1 day</span><span class="m">From</span><span>Gaffer</span></div>
+      <hr>
+      <div id="o-lines"></div>
+      <div class="gen"><span>Genny, suggested</span><b id="o-gen">— kVA</b></div>
+      <div class="foot2"><span id="o-sum">—</span><span>Check every line before it goes</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="price">
+  <div class="sh"><h2>Price</h2><span class="tag">Plot and share free · Pro for the depth</span></div>
+  <div class="pr-top">
+    <p class="lead">Plotting and sending the live link are free, with no limit on plots or lamps. Pro is for the depth: the hire order, the gaffer sheet, AR tagging and your own kit.</p>
+    <div class="segs" id="pr-bill" role="group" aria-label="Billing"><button type="button" data-b="yr" aria-pressed="true">Yearly<small>−42%</small></button><button type="button" data-b="mo" aria-pressed="false">Monthly</button></div>
+  </div>
+  <div class="tiers">
+    <article class="tier">
+      <div class="hd"><span>Free</span><span class="led" aria-hidden="true"></span></div>
+      <div class="bd">
+        <div class="amt"><b>£0</b><span>for good</span></div>
+        <p class="note">Everything you need to plot a set by hand.</p>
+        <ul>
+          <li><span class="n">01</span>Hand plotting, unlimited plots</li>
+          <li><span class="n">02</span>The full lamp library</li>
+          <li><span class="n">03</span>Live lux, amps and circuits</li>
+          <li><span class="n">04</span>Live link: opens in any browser, no app</li>
+          <li><span class="n">05</span>Works offline</li>
+        </ul>
+      </div>
+      <div class="ft">No account to make.</div>
+    </article>
+    <article class="tier pro lit" id="pr-pro">
+      <div class="hd"><span>Pro</span><span class="led" aria-hidden="true"></span></div>
+      <div class="bd">
+        <div class="amt"><b><span class="ct" id="pr-amt">£34.99</span></b><span id="pr-per">a year, about £2.92 a month</span></div>
+        <p class="note">Try it free for 7 days. Cancel any time in your Apple settings.</p>
+        <ul>
+          <li><span class="n">01</span>Hire order for your kit house</li>
+          <li><span class="n">02</span>Gaffer sheet and DP diagram, PDF or image</li>
+          <li><span class="n">03</span>AR tagging and new-set layout</li>
+          <li><span class="n">04</span>Your own kit library and branded sheets</li>
+        </ul>
+      </div>
+      <div class="ft"><a class="btn" href="mailto:hello@eltio.studio?subject=Lampwerk%20beta">Ask for a test invite</a><span>7 days free</span></div>
+    </article>
+    <article class="tier">
+      <div class="hd"><span>Beta testers</span><span class="led" aria-hidden="true"></span></div>
+      <div class="bd">
+        <div class="amt"><b>£0</b><span>first year of Pro</span></div>
+        <p class="note">Gaffers and DPs on the beta get their first year of Pro free when Lampwerk launches. The app tells you how to claim it.</p>
+      </div>
+      <div class="ft"><a class="btn ghost" href="mailto:hello@eltio.studio?subject=Lampwerk%20beta">Join the beta</a></div>
+    </article>
+  </div>
+  <div class="pr-small"><span>Kit hire house or production company? <a href="mailto:hello@eltio.studio?subject=Lampwerk%20team%20price">Ask about a team price</a></span></div>
 </section>
 
 <section class="sec" id="end">
@@ -690,7 +876,43 @@ function drawVs(anim){var t=VS.them[vi],tb=$("#vs");function paint(){tb.innerHTM
 drawVs();
 
 /* ---------- the sheet follows the plot ---------- */
-var shT;function sheetSoon(){clearTimeout(shT);shT=setTimeout(drawSheet,150)}
+var shT;function sheetSoon(){clearTimeout(shT);shT=setTimeout(function(){drawSheet();drawOrder();drawLink()},150)}
+/* hire order: built from every head on the plot, any quantity can be changed */
+var OV={},GEN=[6,10,20,30,60,100,150,200,350];
+function standFor(l){if(l.type==="practical")return null;if(l.w>=12000)return "Mombo combo";if(l.w>=1200||l.size[0]>=.5)return "Combo stand";return "C-stand"}
+function orderBase(){var g=[],ix={};function add(grp,k,name,q,note){if(!q)return;if(ix[k]){ix[k].q+=q;return}ix[k]={grp:grp,k:k,name:name,q:q,note:note||""};g.push(ix[k])}
+  var small=[],big=0,w=0;
+  S.items.forEach(function(it){var l=LIB[it.lib];add("HEADS","h-"+it.lib,l.name.replace("Arri ","Arri "),1);var st=standFor(l);if(st){add("STANDS AND GRIP","s-"+st,st,1);add("STANDS AND GRIP","sand","Sandbags",2)}
+    var a=amps(l,100);if(a>16)big++;else small.push(a);w+=l.w});
+  var cs=circuits(small),nc=cs.length;
+  add("POWER","c16l","16 A cable",nc,"25 m");add("POWER","c16s","16 A cable",nc+small.length-nc,"10 m");
+  add("POWER","c63","63 A cable",big,"25 m");
+  add("POWER","spl","16 A splitter",cs.filter(function(c){return c.n>1}).length,"3-way");
+  if(nc>1||big)add("POWER","dist","Distro box",Math.max(1,Math.ceil(nc/6)),"63 A to 16 A");
+  var kva=w*1.25/1000,gen=GEN.find(function(x){return x>=kva})||GEN[GEN.length-1];
+  var GO=["HEADS","STANDS AND GRIP","POWER"];g.sort(function(a,b){return GO.indexOf(a.grp)-GO.indexOf(b.grp)});
+  return {lines:g,gen:gen,w:w}}
+function drawOrder(){var box=$("#o-lines");if(!box)return;var o=orderBase(),grp="",h="",n=0;
+  o.lines.forEach(function(x){var q=OV[x.k]!=null?OV[x.k]:x.q;if(x.grp!==grp){grp=x.grp;h+='<div class="grp">'+grp+'</div>'}n+=q;
+    h+='<div class="ln"><span class="nm">'+x.name+(x.note?'<small>'+x.note+'</small>':'')+'</span><span class="q"><button type="button" data-k="'+x.k+'" data-d="-1" aria-label="One fewer '+x.name+'">−</button><b id="q-'+x.k+'">'+q+'</b><button type="button" data-k="'+x.k+'" data-d="1" aria-label="One more '+x.name+'">+</button></span></div>'});
+  box.innerHTML=h;$("#o-gen").textContent=o.gen+" kVA";$("#o-sum").textContent=o.lines.length+" lines · "+n+" items · "+(o.w/1000).toFixed(1)+" kW of heads"}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("#o-lines button");if(!b)return;var k=b.dataset.k,o=orderBase(),x=o.lines.find(function(l){return l.k===k});if(!x)return;
+  var q=Math.max(0,(OV[k]!=null?OV[k]:x.q)+(+b.dataset.d));OV[k]=q;drawOrder();var el=document.getElementById("q-"+k);if(el&&!RM){el.classList.add("bump")}});
+(function(){var to=$("#o-to"),tv=$("#o-to-v"),t=$("#o-toast");if(!to)return;
+  to.addEventListener("input",function(){tv.textContent=to.value.trim()||"Your usual hire desk"});
+  $("#o-reset").addEventListener("click",function(){OV={};drawOrder();t.textContent="Back to what the plot needs."});
+  $("#o-send").addEventListener("click",function(){var d=$("#order-doc");if(!RM&&d.animate)d.animate([{transform:"rotate(-.6deg)"},{transform:"rotate(-.6deg) translateY(-14px) scale(.98)",opacity:.7},{transform:"rotate(-.6deg)",opacity:1}],{duration:700,easing:"cubic-bezier(.2,.7,.2,1)"});
+    t.textContent="PDF ready. In the app it opens Mail or WhatsApp, addressed to "+(to.value.trim()||"your hire desk")+"."})})();
+/* live link demo */
+function drawLink(){var sv=$("#lk-plan");if(!sv)return;while(sv.firstChild)sv.removeChild(sv.firstChild);var k=Math.min(240/(ROOM.w+2),110/(ROOM.h+1.4)),ox=(240-ROOM.w*k)/2,oy=(110-ROOM.h*k)/2;
+  el("rect",{x:ox,y:oy,width:ROOM.w*k,height:ROOM.h*k,fill:"none",stroke:"rgba(237,237,234,.25)","stroke-width":1},sv);
+  el("circle",{cx:ox+S.talent.x*k,cy:oy+S.talent.y*k,r:3.5,fill:"#EDEDEA"},sv);
+  el("rect",{x:ox+S.camera.x*k-4,y:oy+S.camera.y*k-3,width:8,height:6,rx:1,fill:"none",stroke:"#EDEDEA"},sv);
+  var on=0,a=0;S.items.forEach(function(it){var o=isOn(it),x=Math.max(ox-6,Math.min(ox+ROOM.w*k+6,ox+it.x*k)),y=oy+it.y*k;
+    if(o){on++;a+=amps(LIB[it.lib],it.dim);el("line",{x1:x,y1:y,x2:ox+S.talent.x*k,y2:oy+S.talent.y*k,stroke:"rgba(255,194,26,.35)","stroke-width":1},sv)}
+    el("circle",{cx:x,cy:y,r:5,fill:o?"#FFC21A":"#262624",stroke:o?"none":"rgba(237,237,234,.4)"},sv)});
+  $("#lk-on").textContent=on+" of "+S.items.length+" on";$("#lk-pw").textContent=a.toFixed(1)+" A"}
+(function(){var ph=$("#pin-ph"),ps=document.querySelectorAll("#pins .pn");ps.forEach(function(b){b.addEventListener("click",function(){ps.forEach(function(o){o.setAttribute("aria-pressed",o===b?"true":"false")});ph.textContent=b.dataset.c;ph.style.backgroundImage=b.dataset.bg})})})();
 function drawSheet(){var on=S.items.filter(isOn);$("#sh-shot").textContent="SETUP "+S.shot.toUpperCase();$("#sh-on").textContent=on.length+" of "+S.items.length+" on";$("#sh-gh").textContent="GEAR ("+S.items.length+")";
   $("#sh-gear").innerHTML=S.items.map(function(it){var l=LIB[it.lib],o=isOn(it);return '<tr class="'+(o?"":"off")+'"><td>'+String(it.n).padStart(2,"0")+'</td><td>'+l.name.replace("Arri ","")+'</td><td>'+[it.mod,it.gel].filter(function(x){return x!=="None"}).join(", ").replace("8x8 full grid","8x8 grid")+'</td><td>'+(o?fmt(luxFrom(it,S.talent))+" lx":"Off")+'</td><td>'+f1(amps(l,it.dim))+'</td></tr>'}).join("");
   var cs=liveCirc();$("#sh-power").innerHTML=(cs.length?cs:[{id:"A",a:0}]).map(function(c){return '<div class="pc"><span>'+c.id+'</span><span class="pb"><i style="width:'+Math.min(100,c.a/16*100)+'%"></i></span><span>'+f1(c.a)+' / 16 A</span></div>'}).join("");
@@ -703,7 +925,7 @@ function drawSheet(){var on=S.items.filter(isOn);$("#sh-shot").textContent="SETU
 if("IntersectionObserver" in window&&!RM){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){Array.prototype.forEach.call(e.target.querySelectorAll(".rv"),function(r,i){r.style.transitionDelay=(i*.12)+"s"});e.target.classList.add("in");io.disconnect()}})},{threshold:.25});io.observe($("#paper"))}else $("#paper").classList.add("in");
 
 /* ---------- tabs follow the scroll ---------- */
-var secs=["plot","ar","features","compare","sheet"];
+var secs=["plot","ar","features","pass","compare","sheet","order","price"];
 addEventListener("scroll",function(){var y=innerHeight*.35,cur="plot";secs.forEach(function(id){var e=document.getElementById(id);if(e&&e.getBoundingClientRect().top<y)cur=id});Array.prototype.forEach.call(document.querySelectorAll("#tabs a"),function(a){a.classList.toggle("cur",a.getAttribute("href")==="#"+cur)})},{passive:true});
 
 /* ---------- boot ---------- */
@@ -1132,4 +1354,17 @@ if(!RM)render();
 
 <script src="end.js" defer></script>
 <script src="extra.js" defer></script>
+<script>
+/* price: yearly / monthly */
+(function(){
+  var amt=document.getElementById("pr-amt"),per=document.getElementById("pr-per"),bs=document.querySelectorAll("#pr-bill button");
+  if(!amt)return;
+  var T={yr:["£34.99","a year, about £2.92 a month"],mo:["£4.99","a month"]};
+  bs.forEach(function(b){b.addEventListener("click",function(){
+    bs.forEach(function(o){o.setAttribute("aria-pressed",o===b?"true":"false")});
+    amt.classList.add("sw");
+    setTimeout(function(){amt.textContent=T[b.dataset.b][0];per.textContent=T[b.dataset.b][1];amt.classList.remove("sw")},180);
+  })});
+})();
+</script>
 </body></html>
