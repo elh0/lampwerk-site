@@ -228,12 +228,118 @@ input[type=range]:disabled { opacity: .35; }
   .cmp td:first-child { width: 22%; }
   .top .btn.ghost { display: none; }
 }
+
+/* the cable run behind the page */
+.bgplot { position: absolute; top: 0; left: 0; width: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
+.bgplot svg { display: block; }
+.bgplot path, .bgplot rect { fill: none; stroke: rgba(237,237,234,.13); stroke-width: 1; }
+.bg-grid path { stroke: rgba(237,237,234,.06); }
+.bg-cable { stroke: rgba(237,237,234,.22) !important; stroke-dasharray: 1000; stroke-dashoffset: 1000; stroke-linecap: round; }
+.bgplot text { font: 400 10px var(--mono); fill: rgba(237,237,234,.3); }
+.bg-mod { opacity: 0; transition: opacity .8s var(--ease); }
+.bg-mod.on { opacity: 1; }
+.bgplot .bg-beam { fill: var(--gel); fill-opacity: 0; stroke: none; transition: fill-opacity 1.2s var(--ease) .5s; }
+.bg-mod.on .bg-beam { fill-opacity: .045; }
+.bgplot .bg-edge { stroke: rgba(255,194,26,.18); }
+.bgplot .bg-dim { stroke: rgba(237,237,234,.18); }
+
+/* the phone at the end */
+.endrow { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.25fr); gap: 40px; align-items: center; }
+.endtext .lead { font-size: 17px; line-height: 1.55; margin: 0 0 20px; max-width: 42ch; }
+.endtext p { color: var(--tm); max-width: 46ch; }
+.ph-stage { position: relative; height: min(82vh, 760px); height: min(82svh, 760px); min-height: 520px; border: 1px solid var(--ln); border-radius: 14px; background: radial-gradient(60% 50% at 50% 55%, #1a1a18, var(--p0) 70%); overflow: hidden; }
+.ph-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; outline-offset: -3px; }
+.ph-stage.held canvas { cursor: grabbing; }
+.ph-stage .hint { position: absolute; left: 14px; bottom: 12px; font: 400 11px var(--mono); color: var(--tf); pointer-events: none; transition: opacity .4s; }
+.ph-stage.held .hint { opacity: 0; }
+.ph-stage .fb { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; color: var(--tm); font-size: 13px; }
+.ph-stage.no3d .fb { display: flex; }
+.ph-stage.no3d canvas, .ph-stage.no3d .hint { display: none; }
+#ph-lights { margin: 4px 0 10px; }
+#ph-lights button { display: inline-flex; align-items: center; gap: 7px; }
+#ph-lights button i { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--tm); }
+#ph-lights button[aria-pressed="true"] i { background: var(--gel); border-color: var(--gel); }
+#ph-lights button[data-l="fill"][aria-pressed="true"] i, #ph-lights button[data-l="back"][aria-pressed="true"] i { background: var(--t); border-color: var(--t); }
+.ph-log { margin: 0 0 26px; font-size: 11px; color: var(--tm); }
+.ph-log::before { content: "> "; color: var(--tf); }
+.endcta { border-top: 1px solid var(--ln); padding-top: 20px; }
+.endcta h3 { margin: 0 0 6px; font: 500 20px/1.3 var(--sans); letter-spacing: -.01em; }
+.endcta .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.endcta .btn { padding: 10px 14px; font-size: 14px; }
+@media (max-width: 900px) {
+  .endrow { grid-template-columns: 1fr; gap: 24px; }
+  .endrow .ph-stage { order: -1; }
+}
+@media (max-width: 560px) { .ph-stage { height: min(118vw, 74vh); height: min(118vw, 74svh); min-height: 0; } }
+
+/* strike: the page comes up like a lamp */
+.strike { position: fixed; inset: 0; z-index: 100; background: #070707; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.strike .sc { display: flex; align-items: center; gap: 10px; color: var(--tm); font-size: 12px; }
+.strike .sd { width: 9px; height: 9px; border-radius: 50%; background: var(--gel); box-shadow: 0 0 0 0 rgba(255,194,26,.6); animation: sd 1.2s steps(6) forwards; opacity: .2; }
+@keyframes sd { 0% { opacity: .1; } 30% { opacity: .7; box-shadow: 0 0 30px 6px rgba(255,194,26,.35); } 45% { opacity: .2; } 100% { opacity: 1; box-shadow: 0 0 60px 18px rgba(255,194,26,.45); } }
+.strike.go { animation: strike 1.9s linear forwards; }
+@keyframes strike { 0%,55% { opacity: 1; } 60% { opacity: .35; } 63% { opacity: .95; } 68% { opacity: .15; } 71% { opacity: .7; } 78% { opacity: .05; } 82% { opacity: .4; } 100% { opacity: 0; } }
+
+/* the cursor is a lamp */
+.torch { position: fixed; left: 0; top: 0; width: 600px; height: 600px; z-index: 0; pointer-events: none; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,194,26,.11), rgba(255,194,26,.04) 45%, rgba(255,194,26,0)); opacity: 0; transition: opacity .6s var(--ease); mix-blend-mode: screen; }
+.torch.on { opacity: 1; }
+
+/* heads ticker */
+.ticker { margin: 72px 0 0; border-top: 1px solid var(--ln); border-bottom: 1px solid var(--ln); overflow: hidden; background: var(--p1); }
+.tk-track { display: flex; width: max-content; animation: tk 60s linear infinite; }
+.ticker:hover .tk-track { animation-play-state: paused; }
+.tk-track span { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; font: 400 13px var(--mono); color: var(--tm); border-right: 1px solid var(--ln); white-space: nowrap; }
+.tk-track i { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--tf); transition: background .25s, border-color .25s, box-shadow .25s; }
+.tk-track i.lit { background: var(--gel); border-color: var(--gel); box-shadow: 0 0 12px rgba(255,194,26,.6); }
+@keyframes tk { to { transform: translateX(-50%); } }
+
+/* gaffer sheet printer */
+.printer { --rx: 0deg; --ry: 0deg; max-width: 520px; width: 100%; justify-self: center; }
+.slot { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 12px; height: 34px; padding: 0 14px; margin: 0 -14px; border-radius: 8px 8px 3px 3px; background: linear-gradient(#262624, #1A1A18); border: 1px solid var(--ln2); box-shadow: 0 10px 24px rgba(0,0,0,.5), inset 0 -6px 0 #0B0B0A; font-size: 11px; color: var(--tm); }
+.printer.done .slot-st::before { content: "● "; color: var(--gel); }
+.slot-bar { width: 90px; height: 3px; background: var(--ln); border-radius: 2px; overflow: hidden; }
+.slot-bar i { display: block; height: 100%; width: 0; background: var(--gel); transition: width .2s; }
+.printer.jolt .slot { transform: translateY(1px); }
+.feedwin { position: relative; clip-path: inset(0 -60px -120px -60px); transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d; transition: transform .25s var(--ease); margin-top: -3px; }
+.feed { position: relative; transform: translateY(-101%); }
+.feed .paper { max-width: none; }
+.sheen { position: absolute; inset: 0; pointer-events: none; border-radius: 4px; }
+.printer.sent .feed { transition: transform .7s cubic-bezier(.5,0,.8,.4), opacity .7s !important; transform: translate(70%, -30%) rotate(14deg) scale(.6) !important; opacity: 0; }
+.stamp { position: absolute; right: 22px; bottom: 54px; padding: 6px 10px; border: 2px solid rgba(11,11,10,.72); border-radius: 4px; color: rgba(11,11,10,.72); font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; transform: rotate(-7deg) scale(2.2); opacity: 0; pointer-events: none; mix-blend-mode: multiply; }
+.stamp.slam { animation: slam .35s cubic-bezier(.2,1.6,.4,1) forwards; }
+.stamp.bad { border-style: dashed; }
+@keyframes slam { 0% { transform: rotate(-7deg) scale(2.2); opacity: 0; } 60% { opacity: 1; } 100% { transform: rotate(-7deg) scale(1); opacity: 1; } }
+.paper { position: relative; }
+.printer[data-f="image"] .paper > .rv:not(.plan):not(:first-child) { display: none; }
+.printer[data-f="image"] .paper .plan { flex: 1 1 auto; }
+.shtext { position: absolute; inset: 0; display: none; align-items: flex-start; padding: 16px; background: #0B0B0A; border-radius: 4px; border: 1px solid var(--ln); }
+.printer[data-f="text"] .shtext { display: flex; }
+.printer[data-f="text"] .feed { visibility: hidden; }
+.chat { width: 100%; }
+.chat .who { display: flex; justify-content: space-between; font-size: 12px; color: var(--tm); border-bottom: 1px solid var(--ln); padding-bottom: 8px; margin-bottom: 14px; }
+.chat .msg { max-width: 80%; background: #1D1D1B; border-radius: 14px 14px 14px 4px; padding: 9px 12px; font-size: 13px; color: var(--t); margin: 0 0 12px; }
+.chat .msg small { display: block; font: 400 10px var(--mono); color: var(--tm); margin-bottom: 2px; }
+.chat .msg.late { animation: bub .4s var(--ease) 1.4s both; }
+.chat .bub { margin: 0 0 12px auto; max-width: 92%; background: #262624; border-radius: 14px 14px 4px 14px; padding: 12px 14px 8px; font: 400 12px/1.6 var(--mono); color: var(--t); animation: bub .4s var(--ease); }
+.chat .bub b { font-weight: 500; }
+.chat .tm2 { display: block; text-align: right; color: var(--tf); font-size: 10px; margin-top: 4px; }
+.chat .tm2 s { text-decoration: none; color: var(--gel); }
+@keyframes bub { from { transform: translateY(12px) scale(.96); opacity: 0; } }
+.sh-toast { min-height: 1.6em; font-size: 11px; color: var(--tm); opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; margin-top: 12px !important; }
+.sh-toast.show { opacity: 1; transform: none; }
+.sh-toast::before { content: "> "; color: var(--gel); }
+#sh-send:disabled { opacity: .5; }
+@media (max-width: 560px) { .slot { margin: 0 -6px; } .stamp { right: 12px; bottom: 40px; font-size: 9px; } .tk-track span { padding: 12px 18px; font-size: 12px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } .paper .rv { opacity: 1; transform: none; } .draw use { stroke-dashoffset: 0; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="mark" viewBox="0 0 648 960"><path fill-rule="evenodd" d="M157.9 913.0C147.8 910.0 135.2 900.2 128.6 890.4C126.3 886.9 122.3 882.4 119.7 880.5C113.3 875.6 111.5 872.0 111.6 864.0C111.6 858.9 112.3 856.2 114.5 851.7C118.3 844.1 126.7 834.1 135.3 827.1C142.2 821.4 146.3 816.3 153.7 804.3C159.5 794.8 159.7 793.2 156.4 786.3C153.7 780.7 153.6 779.9 153.2 761.5L152.9 742.5L156.1 736.5C158.6 731.9 159.5 728.3 160.6 720.0C161.7 711.7 162.7 708.0 165.5 702.5C167.4 698.6 170.1 692.4 171.4 688.5C172.8 684.6 174.6 679.5 175.5 677.0C176.9 673.3 177.1 669.5 176.8 655.0C176.4 638.5 176.2 637.1 173.5 630.5C170.7 623.6 170.6 623.2 170.0 597.0C169.6 577.5 169.1 569.8 168.1 568.0C164.8 561.9 160.7 559.5 155.8 560.5C152.9 561.2 136.1 573.1 128.7 579.7C120.4 587.1 113.5 590.6 102.0 593.5C80.4 598.9 69.6 595.5 55.7 579.2C49.4 571.8 46.0 565.1 46.0 560.1C46.0 557.6 47.4 553.5 50.0 548.2C55.5 537.3 63.1 530.2 72.1 527.5C77.8 525.8 79.4 524.8 86.3 517.7C94.6 509.3 99.5 501.1 102.5 490.4C104.2 484.7 112.7 468.0 119.4 457.6C123.2 451.6 132.3 440.8 143.0 429.5C150.9 421.1 157.7 410.6 161.5 401.1C162.7 398.0 166.1 391.8 169.1 387.3C181.1 369.0 183.3 364.9 183.8 359.8C184.2 355.7 183.9 354.5 181.9 352.4C179.0 349.3 173.5 347.8 169.0 348.9C148.3 354.0 136.5 358.2 127.3 363.6C124.9 364.9 120.4 366.5 117.3 367.1C114.1 367.7 107.3 369.5 102.2 371.1C97.1 372.7 91.4 374.0 89.5 374.0C84.9 374.0 79.4 371.7 78.1 369.2C76.4 366.0 76.8 359.0 79.0 354.2C82.1 347.4 103.3 328.2 121.6 315.5C139.9 302.9 156.1 289.7 158.7 285.3C161.7 280.1 162.1 274.4 160.4 256.0C159.4 245.6 159.0 244.0 155.9 239.0C154.0 236.0 151.7 231.9 150.7 229.9C149.7 227.9 136.8 214.1 122.0 199.1C100.1 177.0 94.6 170.8 92.1 165.8C88.4 158.5 88.2 154.5 91.3 149.9C94.6 145.0 99.2 143.8 113.0 144.2C122.6 144.5 125.5 145.0 130.5 147.2C133.8 148.6 138.5 150.0 141.0 150.4C143.5 150.7 148.9 152.1 153.0 153.5C157.1 154.8 163.7 156.6 167.5 157.4C171.3 158.2 177.2 159.6 180.5 160.4C183.8 161.2 191.7 162.6 198.0 163.5C219.8 166.5 229.9 162.1 238.0 146.1C241.3 139.5 245.1 125.2 247.4 111.0C248.2 105.8 250.0 98.8 251.3 95.5C252.7 92.2 254.3 86.6 255.0 83.0C255.7 79.2 258.3 72.2 261.3 66.1C267.4 53.9 271.3 50.1 278.5 49.3C282.9 48.8 283.3 48.9 287.5 53.3C292.1 58.2 296.0 67.8 296.0 74.4C296.0 78.9 299.8 99.2 301.6 104.3C302.4 106.6 303.5 113.4 304.0 119.3C304.8 128.6 305.3 130.8 308.0 135.5C310.4 139.7 311.3 142.8 311.9 148.9C313.1 160.3 314.7 162.6 325.6 168.0C330.5 170.5 338.2 174.7 342.6 177.5C349.9 182.1 351.0 182.5 356.5 182.4C363.2 182.3 374.8 178.2 389.9 170.5C408.5 160.9 425.3 156.1 439.7 156.0C452.8 156.0 459.1 162.2 454.6 170.8C451.5 176.7 418.5 207.1 406.8 214.9C399.0 220.1 391.5 227.4 390.0 231.6C388.3 236.0 388.9 242.2 391.9 250.5C402.7 281.1 419.4 305.1 436.0 313.9C440.0 316.1 446.3 321.0 452.5 326.9C465.2 339.1 474.5 346.1 489.0 354.5C502.6 362.4 504.1 363.7 513.4 375.8C524.9 391.0 526.0 392.7 530.0 401.9C537.0 417.9 539.2 428.3 540.0 447.6C540.5 461.9 541.0 465.2 542.6 468.0C545.5 473.0 548.8 474.9 556.9 476.0C566.0 477.3 572.7 480.7 578.4 487.1C584.1 493.4 586.6 500.4 590.9 521.9C591.5 524.9 593.7 530.0 595.8 533.4C598.9 538.6 599.5 540.5 599.8 546.7C600.0 550.6 599.7 555.4 599.0 557.4C596.7 564.3 586.9 570.0 579.5 568.6C576.0 567.9 571.0 564.8 562.4 558.0C557.0 553.8 556.3 553.5 549.5 553.2C543.2 552.8 541.4 553.2 535.2 555.9C523.1 561.2 512.7 559.8 499.8 551.0C495.8 548.2 491.7 546.0 490.8 546.0C487.5 546.0 486.7 549.6 488.0 557.9C488.8 563.0 489.1 574.9 488.8 594.5C488.4 627.0 489.1 622.7 478.7 652.6C476.2 659.8 473.7 668.9 473.2 672.9C472.5 677.5 471.0 682.4 468.7 686.8C466.9 690.5 463.8 697.2 462.0 701.7L458.7 709.9L460.3 716.0C461.2 719.3 462.0 722.9 462.0 724.1C462.0 729.5 454.9 739.0 446.6 744.5C436.2 751.5 427.6 757.9 423.6 761.8C419.2 766.0 415.9 768.0 409.5 770.0C403.5 771.9 388.0 781.4 384.0 785.5C382.1 787.6 376.7 792.4 372.0 796.3C367.3 800.2 359.9 806.8 355.5 811.1C348.6 817.7 346.6 819.1 341.5 820.5C326.9 824.5 315.9 830.3 309.3 837.3C302.2 844.8 301.1 850.0 306.2 851.9C310.9 853.6 325.3 846.8 335.2 838.1C342.0 832.1 353.4 827.4 378.7 820.0C387.2 817.6 400.1 809.3 422.4 792.1C427.1 788.4 429.1 787.6 433.4 787.2C437.9 786.8 439.0 787.1 441.7 789.4C447.5 794.3 448.2 801.7 443.8 810.5C441.6 814.6 423.2 833.3 410.0 844.7C401.8 851.8 389.4 859.5 379.8 863.6C376.5 865.0 370.5 868.3 366.6 871.0C362.7 873.6 357.5 876.8 355.0 878.0C352.5 879.2 348.0 881.7 345.0 883.5C342.0 885.4 336.8 887.4 333.5 888.0C330.2 888.7 325.0 890.5 322.0 892.1C309.9 898.4 298.8 902.4 285.0 905.7C264.2 910.6 258.5 909.9 247.4 901.5C242.1 897.4 236.1 895.6 231.1 896.5C229.1 896.9 223.4 899.0 218.5 901.2C213.6 903.4 203.7 906.7 196.5 908.6C189.3 910.4 181.9 912.4 180.0 912.9C176.0 914.2 161.8 914.2 157.9 913.0Z"/></symbol>
 </svg>
+
+<div class="strike" id="strike" aria-hidden="true"><div class="sc"><span class="sd"></span><span class="sl mono">M18 · striking</span></div></div>
+<div class="torch" id="torch" aria-hidden="true"></div>
+<div class="bgplot" id="bgplot" aria-hidden="true"></div>
 
 <header class="top">
   <a class="brand" href="#plot" aria-label="Lampwerk"><svg class="mark" style="height:22px;width:14.8px;color:var(--t)" viewBox="0 0 648 960" aria-hidden="true"><use href="#mark"/></svg><span class="wm">Lampwerk</span></a>
@@ -329,6 +435,8 @@ input[type=range]:disabled { opacity: .35; }
   </div>
 </section>
 
+<div class="ticker" id="ticker" aria-label="Some of the heads in the library"><div class="tk-track"><span><i></i>Arri M18</span><span><i></i>SkyPanel S60-C</span><span><i></i>Arri Orbiter</span><span><i></i>Aputure 600c Pro</span><span><i></i>Astera Titan Tube</span><span><i></i>Kino Flo Celeb 450</span><span><i></i>Arri 2K Fresnel</span><span><i></i>Creamsource Vortex8</span><span><i></i>Nanlux Evoke 1200</span><span><i></i>Dedo DLH4</span><span><i></i>Arri M40</span><span><i></i>Litegear LiteMat</span><span><i></i>Arri 18K</span><span><i></i>Aputure Nova P600c</span></div></div>
+
 <section class="sec" id="compare">
   <div class="sh"><h2>You know the one</h2><span class="tag">Then / now</span></div>
   <p class="tm" style="max-width:60ch;margin:0 0 20px">Grey circles labelled light, a phone turned sideways, and paying before it'll save. Those apps got us through a lot of shoots. They haven't changed much since.</p>
@@ -344,8 +452,13 @@ input[type=range]:disabled { opacity: .35; }
       <p style="color:var(--t)">The plan for the setup, then every head with its modifier, gel, distance, light at the subject and amps. Then the power, circuit by circuit, against 16 A. The app's sheet adds each head height from AR.</p>
       <p>It's black on white, so it survives the photocopier on the truck. Lit lamps are filled in black instead of yellow.</p>
       <p>Change the plot at the top and this sheet changes with it.</p>
-      <a class="btn" href="#plot" style="display:inline-block;margin-top:6px">Back to the plot</a>
+      <div class="segs" id="sh-fmt" role="group" aria-label="Send as" style="margin-top:8px"><button type="button" data-f="pdf" aria-pressed="true">PDF</button><button type="button" data-f="image" aria-pressed="false">Image</button><button type="button" data-f="text" aria-pressed="false">Text</button></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" id="sh-send">Send it</button><a class="btn ghost" href="#plot">Back to the plot</a></div>
+      <p class="mono sh-toast" id="sh-toast" aria-live="polite"></p>
     </div>
+    <div class="printer" id="printer" data-f="pdf">
+      <div class="slot"><span class="slot-st mono">Waiting for the plot</span><span class="slot-bar"><i></i></span></div>
+      <div class="feedwin"><div class="feed">
     <div class="paper" id="paper">
       <div class="rv" style="display:flex;justify-content:space-between;align-items:center"><span class="wm" style="font-size:15px;color:#0B0B0A">Lampwerk</span><span class="m" id="sh-shot">SETUP WIDE</span></div>
       <hr class="rv">
@@ -354,7 +467,30 @@ input[type=range]:disabled { opacity: .35; }
       <div class="rv"><span id="sh-gh">GEAR (4)</span><table><thead><tr><th>No</th><th>Head</th><th>Mod, gel</th><th>At subj.</th><th>A</th></tr></thead><tbody id="sh-gear"></tbody></table></div>
       <div class="rv"><span>POWER</span><div id="sh-power"></div></div>
       <div class="rv m" style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:auto"><span>Light levels approximate · 1 of 1</span><svg class="mark" style="height:18px;width:12.2px;color:rgba(11,11,10,.85)" viewBox="0 0 648 960" aria-hidden="true"><use href="#mark"/></svg></div>
+      <div class="stamp" id="stamp" aria-hidden="true">Power checked</div>
     </div>
+      <div class="sheen" aria-hidden="true"></div></div>
+      <div class="shtext" id="sh-text" aria-live="polite"><div class="chat"><div class="who"><span>Kitchen night · crew</span><span class="mono">4 people</span></div><div class="msg"><small>Rob · gaffer</small>Can you send tomorrow's plot over? Loading the truck tonight.</div><div class="bub"></div><div class="msg late"><small>Rob · gaffer</small>Perfect. One genny will cover that.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="end">
+  <div class="sh"><h2>Light the phone</h2><span class="tag">Three heads · drag to turn</span></div>
+  <div class="endrow">
+    <div class="endtext">
+      <p class="lead">Same setup as a product shoot. A key through Medium Yellow, a soft fill from the other side, and a back light for the edge.</p>
+      <p>Switch them on and off. The reflections follow, and so does the plot on the screen.</p>
+      <div class="segs" id="ph-lights" role="group" aria-label="Lights on the phone"><button type="button" data-l="key" aria-pressed="true"><i></i>1 Key</button><button type="button" data-l="fill" aria-pressed="true"><i></i>2 Fill</button><button type="button" data-l="back" aria-pressed="true"><i></i>3 Back</button></div>
+      <p class="mono ph-log"><span id="ph-log" aria-live="polite"></span></p>
+      <div class="endcta">
+        <h3>Plot your next job on it.</h3>
+        <p>Lampwerk is in beta on iPhone. It's free while we test, and there's no account to make.</p>
+        <div class="row"><a class="btn" href="mailto:hello@eltio.studio?subject=Lampwerk%20beta">Ask for a test invite</a><a class="btn ghost" href="#plot">Back to the plot</a></div>
+      </div>
+    </div>
+    <div class="ph-stage" id="ph-stage"><canvas id="ph3" tabindex="0" role="img" aria-label="A 3D iPhone running Lampwerk, lit by a key, a fill and a back light. Drag or use the arrow keys to turn it."></canvas><span class="hint">drag to turn</span><div class="fb">Your browser can't show the 3D phone.</div></div>
   </div>
 </section>
 
@@ -987,4 +1123,6 @@ if(!RM)render();
 })();
 </script>
 
+<script src="end.js" defer></script>
+<script src="extra.js" defer></script>
 </body></html>
