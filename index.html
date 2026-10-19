@@ -208,8 +208,10 @@ input[type=range]:disabled { opacity: .35; }
   .phone canvas { border-radius: 13px; }
 }
 
+@media (max-width: 900px) { .stat { display: none; } }
+@media (max-width: 720px) { .tabs { display: none; } }
 @media (max-width: 1000px) {
-  .app { grid-template-columns: 1fr; height: auto; min-height: 0; }
+  .app { grid-template-columns: 1fr; height: auto; min-height: 0; max-height: none; }
   .canvas { height: min(68vh, 560px); height: min(68svh, 560px); order: -1; }
 }
 @media (max-width: 560px) { .canvas { height: min(54vh, 420px); height: min(54svh, 420px); }
@@ -252,6 +254,11 @@ input[type=range]:disabled { opacity: .35; }
 .ph-stage.held canvas { cursor: grabbing; }
 .ph-stage .hint { position: absolute; left: 14px; bottom: 12px; font: 400 11px var(--mono); color: var(--tf); pointer-events: none; transition: opacity .4s; }
 .ph-stage.held .hint { opacity: 0; }
+.ph-stage .turn { position: absolute; right: 12px; top: 12px; display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--ln); background: rgba(14,14,13,.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--t); font: 500 12px var(--sans); cursor: pointer; }
+.ph-stage .turn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; transition: transform .5s var(--ease); }
+.ph-stage .turn[aria-pressed="true"] svg { transform: rotate(-90deg); }
+.ph-stage .turn[aria-pressed="true"] { border-color: rgba(255,194,26,.5); }
+.ph-stage.no3d .turn { display: none; }
 .ph-stage .fb { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; color: var(--tm); font-size: 13px; }
 .ph-stage.no3d .fb { display: flex; }
 .ph-stage.no3d canvas, .ph-stage.no3d .hint { display: none; }
@@ -481,7 +488,7 @@ input[type=range]:disabled { opacity: .35; }
   <div class="endrow">
     <div class="endtext">
       <p class="lead">Same setup as a product shoot. A key through Medium Yellow, a soft fill from the other side, and a back light for the edge.</p>
-      <p>Switch them on and off. The reflections follow, and so does the plot on the screen.</p>
+      <p>Switch them on and off. The reflections follow, and so does the plot on the screen. Turn the phone on its side and the plan fills the width, with the lamps and Add lamp down the right.</p>
       <div class="segs" id="ph-lights" role="group" aria-label="Lights on the phone"><button type="button" data-l="key" aria-pressed="true"><i></i>1 Key</button><button type="button" data-l="fill" aria-pressed="true"><i></i>2 Fill</button><button type="button" data-l="back" aria-pressed="true"><i></i>3 Back</button></div>
       <p class="mono ph-log"><span id="ph-log" aria-live="polite"></span></p>
       <div class="endcta">
@@ -490,7 +497,7 @@ input[type=range]:disabled { opacity: .35; }
         <div class="row"><a class="btn" href="mailto:hello@eltio.studio?subject=Lampwerk%20beta">Ask for a test invite</a><a class="btn ghost" href="#plot">Back to the plot</a></div>
       </div>
     </div>
-    <div class="ph-stage" id="ph-stage"><canvas id="ph3" tabindex="0" role="img" aria-label="A 3D iPhone running Lampwerk, lit by a key, a fill and a back light. Drag or use the arrow keys to turn it."></canvas><span class="hint">drag to turn</span><div class="fb">Your browser can't show the 3D phone.</div></div>
+    <div class="ph-stage" id="ph-stage"><canvas id="ph3" tabindex="0" role="img" aria-label="A 3D iPhone running Lampwerk, lit by a key, a fill and a back light. Drag or use the arrow keys to turn it."></canvas><button type="button" class="turn" id="ph-turn" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4.5" y="1.5" width="7" height="13" rx="1.6"/><path d="M14 9.5a5 5 0 0 1-4.5 4.5M1.8 6.5A5 5 0 0 1 6.5 2"/></svg><span>Landscape</span></button><span class="hint">drag to turn</span><div class="fb">Your browser can't show the 3D phone.</div></div>
   </div>
 </section>
 

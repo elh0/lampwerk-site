@@ -63,7 +63,7 @@ function print(after){
     if(k<steps)setTimeout(step,240);else setTimeout(finish,320);
   }
   setTimeout(step,200);
-  function finish(){printing=false;printed=true;pr.classList.add("done");setSlot("Printed · ready to send");checkPower();setTimeout(function(){stamp.classList.add("slam")},RM?0:120);if(after)after()}
+  function finish(){printing=false;printed=true;pr.classList.add("done");paper.classList.add("in");setSlot("Printed · ready to send");checkPower();setTimeout(function(){stamp.classList.add("slam")},RM?0:120);if(after)after()}
 }
 /* stamp says whether every circuit is under 16 A */
 function checkPower(){
