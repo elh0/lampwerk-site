@@ -78,7 +78,8 @@ svg * { vector-effect: non-scaling-stroke; }
 .tog::after { content: ""; position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--tm); transition: transform .2s var(--ease), background .2s; }
 .on > .tog, .tog.on { background: var(--gel); border-color: var(--gel); }
 .on > .tog::after, .tog.on::after { transform: translateX(12px); background: #0B0B0A; }
-.canvas { position: relative; background: var(--p0); overflow: hidden; touch-action: none; }
+.canvas { position: relative; background: var(--p0); overflow: hidden; touch-action: pan-y; }
+.canvas .lamp, .canvas [data-kind] { touch-action: none; }
 .canvas svg { width: 100%; height: 100%; display: block; user-select: none; -webkit-user-select: none; }
 .canvas text { font-family: var(--mono); fill: var(--tm); }
 .grid { stroke: rgba(237,237,234,.05); }
@@ -422,6 +423,18 @@ input[type=range]:disabled { opacity: .35; }
 .pr-small { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 14px; color: var(--tm); font-size: 13px; }
 .pr-small a { color: var(--t); }
 @media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } .tier.pro { order: -1; } }
+/* phones and tablets: the tabs become a toolbar under the logo, so you can jump instead of scroll */
+@media (max-width: 1000px) {
+  .top { height: auto; flex-wrap: wrap; row-gap: 0; gap: 0 12px; padding: 0 12px; }
+  .top .brand { min-height: 48px; }
+  .top .tabs { display: flex; order: 5; flex: 1 0 100%; margin: 0 -12px; padding: 0 12px 8px; gap: 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; mask-image: linear-gradient(90deg, #000 88%, transparent); -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); }
+  .top .tabs::-webkit-scrollbar { display: none; }
+  .top .tabs a { flex: none; padding: 6px 12px; font-size: 13px; border-radius: 999px; border: 1px solid var(--ln2); background: var(--p1); color: var(--tm); }
+  .top .tabs a.cur { background: var(--t); color: var(--p0); border-color: var(--t); }
+  .top .tabs a:last-child { margin-right: 24px; }
+  html { scroll-padding-top: 96px; }
+  #ph3 { touch-action: pan-y; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } .paper .rv { opacity: 1; transform: none; } .draw use { stroke-dashoffset: 0; } }
 </style>
 
@@ -435,7 +448,7 @@ input[type=range]:disabled { opacity: .35; }
 
 <header class="top">
   <a class="brand" href="#plot" aria-label="Lampwerk"><svg class="mark" style="height:22px;width:14.8px;color:var(--t)" viewBox="0 0 648 960" aria-hidden="true"><use href="#mark"/></svg><span class="wm">Lampwerk</span></a>
-  <nav class="tabs" id="tabs"><a href="#plot" class="cur">Plot</a><a href="#ar">AR</a><a href="#features">Features</a><a href="#compare">Compare</a><a href="#sheet">Sheet</a><a href="#order">Order</a><a href="#price">Price</a></nav>
+  <nav class="tabs" id="tabs"><a href="#plot" class="cur">Plot</a><a href="#ar">AR</a><a href="#features">Features</a><a href="#compare">Compare</a><a href="#sheet">Sheet</a><a href="#order">Order</a><a href="#price">Price</a><a href="#end">Phone</a></nav>
   <span class="sp"></span>
   <span class="stat mono"><i></i>Offline ready · 230 V</span>
   <a class="btn ghost" href="support/">Support</a>
@@ -925,8 +938,8 @@ function drawSheet(){var on=S.items.filter(isOn);$("#sh-shot").textContent="SETU
 if("IntersectionObserver" in window&&!RM){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){Array.prototype.forEach.call(e.target.querySelectorAll(".rv"),function(r,i){r.style.transitionDelay=(i*.12)+"s"});e.target.classList.add("in");io.disconnect()}})},{threshold:.25});io.observe($("#paper"))}else $("#paper").classList.add("in");
 
 /* ---------- tabs follow the scroll ---------- */
-var secs=["plot","ar","features","pass","compare","sheet","order","price"];
-addEventListener("scroll",function(){var y=innerHeight*.35,cur="plot";secs.forEach(function(id){var e=document.getElementById(id);if(e&&e.getBoundingClientRect().top<y)cur=id});Array.prototype.forEach.call(document.querySelectorAll("#tabs a"),function(a){a.classList.toggle("cur",a.getAttribute("href")==="#"+cur)})},{passive:true});
+var secs=["plot","ar","features","pass","compare","sheet","order","price","end"];
+addEventListener("scroll",function(){var y=innerHeight*.35,cur="plot";secs.forEach(function(id){var e=document.getElementById(id);if(e&&e.getBoundingClientRect().top<y)cur=id});Array.prototype.forEach.call(document.querySelectorAll("#tabs a"),function(a){var on=a.getAttribute("href")==="#"+cur;if(on&&!a.classList.contains("cur")){var tb=a.parentNode;if(tb.scrollWidth>tb.clientWidth)tb.scrollTo({left:Math.max(0,a.offsetLeft-tb.clientWidth/2+a.offsetWidth/2),behavior:RM?"auto":"smooth"})}a.classList.toggle("cur",on)})},{passive:true});
 
 /* ---------- boot ---------- */
 build();S.items.forEach(function(it){nodes[it.n].seen=false});
