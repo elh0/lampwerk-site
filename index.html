@@ -274,6 +274,16 @@ input[type=range]:disabled { opacity: .35; }
 .endcta h3 { margin: 0 0 6px; font: 500 20px/1.3 var(--sans); letter-spacing: -.01em; }
 .endcta .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 .endcta .btn { padding: 10px 14px; font-size: 14px; }
+.su-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.su input[type=email] { flex: 1 1 200px; min-width: 0; height: 42px; padding: 0 12px; border-radius: 6px; border: 1px solid var(--ln2); background: var(--p1); color: var(--t); font: 16px var(--sans); }
+.su input[type=email]::placeholder { color: var(--tf); }
+.su input[type=email]:focus { outline: none; border-color: var(--gel); }
+.su .btn { height: 42px; padding: 0 14px; border: 0; font: 500 14px var(--sans); cursor: pointer; }
+.su .btn:disabled { opacity: .6; }
+.su-done { min-height: 1.3em; margin: 8px 0 0; color: var(--tm); font-size: 12px; }
+.su-done a { color: var(--t); }
+.endcta .su + .row { margin-top: 4px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (max-width: 900px) {
   .endrow { grid-template-columns: 1fr; gap: 24px; }
   .endrow .ph-stage { order: -1; }
@@ -452,7 +462,7 @@ input[type=range]:disabled { opacity: .35; }
   <span class="sp"></span>
   <span class="stat mono"><i></i>Offline ready · 230 V</span>
   <a class="btn ghost" href="support/">Support</a>
-  <a class="btn" href="mailto:hello@eltio.studio?subject=Lampwerk%20beta">Join the beta</a>
+  <a class="btn" href="#join">Join the beta</a>
 </header>
 
 <div class="strip" id="plot">
@@ -668,7 +678,7 @@ input[type=range]:disabled { opacity: .35; }
           <li><span class="n">04</span>Your own kit library and branded sheets</li>
         </ul>
       </div>
-      <div class="ft"><a class="btn" href="mailto:hello@eltio.studio?subject=Lampwerk%20beta">Ask for a test invite</a><span>7 days free</span></div>
+      <div class="ft"><a class="btn" href="#join">Ask for a test invite</a><span>7 days free</span></div>
     </article>
     <article class="tier">
       <div class="hd"><span>Beta testers</span><span class="led" aria-hidden="true"></span></div>
@@ -676,7 +686,7 @@ input[type=range]:disabled { opacity: .35; }
         <div class="amt"><b>£0</b><span>first year of Pro</span></div>
         <p class="note">Gaffers and DPs on the beta get their first year of Pro free when Lampwerk launches. The app tells you how to claim it.</p>
       </div>
-      <div class="ft"><a class="btn ghost" href="mailto:hello@eltio.studio?subject=Lampwerk%20beta">Join the beta</a></div>
+      <div class="ft"><a class="btn ghost" href="#join">Join the beta</a></div>
     </article>
   </div>
   <div class="pr-small"><span>Kit hire house or production company? <a href="mailto:hello@eltio.studio?subject=Lampwerk%20team%20price">Ask about a team price</a></span></div>
@@ -690,10 +700,14 @@ input[type=range]:disabled { opacity: .35; }
       <p>Switch them on and off. The reflections follow, and so does the plot on the screen. Turn the phone on its side and the plan fills the width, with the lamps and Add lamp down the right.</p>
       <div class="segs" id="ph-lights" role="group" aria-label="Lights on the phone"><button type="button" data-l="key" aria-pressed="true"><i></i>1 Key</button><button type="button" data-l="fill" aria-pressed="true"><i></i>2 Fill</button><button type="button" data-l="back" aria-pressed="true"><i></i>3 Back</button></div>
       <p class="mono ph-log"><span id="ph-log" aria-live="polite"></span></p>
-      <div class="endcta">
+      <div class="endcta" id="join">
         <h3>Plot your next job on it.</h3>
-        <p>Lampwerk is in beta on iPhone. It's free while we test, and there's no account to make.</p>
-        <div class="row"><a class="btn" href="mailto:hello@eltio.studio?subject=Lampwerk%20beta">Ask for a test invite</a><a class="btn ghost" href="#plot">Back to the plot</a></div>
+        <p>Lampwerk is in beta on iPhone. It's free while we test, and there's no account to make. Leave your email and we'll send a test invite.</p>
+        <form class="su" data-signup data-app="lampwerk" data-list="beta" data-done="You're on the list. Your test invite comes to that email." novalidate>
+          <div class="su-row"><label class="sr" for="su-em">Your email</label><input id="su-em" type="email" name="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required><input class="sr" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">Get a test invite</button></div>
+          <p class="su-done mono" role="status" aria-live="polite"></p>
+        </form>
+        <div class="row"><a class="btn ghost" href="#plot">Back to the plot</a></div>
       </div>
     </div>
     <div class="ph-stage" id="ph-stage"><canvas id="ph3" tabindex="0" role="img" aria-label="A 3D iPhone running Lampwerk, lit by a key, a fill and a back light. Drag or use the arrow keys to turn it."></canvas><button type="button" class="turn" id="ph-turn" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4.5" y="1.5" width="7" height="13" rx="1.6"/><path d="M14 9.5a5 5 0 0 1-4.5 4.5M1.8 6.5A5 5 0 0 1 6.5 2"/></svg><span>Landscape</span></button><span class="hint">drag to turn</span><div class="fb">Your browser can't show the 3D phone.</div></div>
@@ -1380,4 +1394,5 @@ if(!RM)render();
   })});
 })();
 </script>
+<script src="signup.js" defer></script>
 </body></html>
