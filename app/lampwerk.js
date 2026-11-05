@@ -285,7 +285,29 @@ function hireOrder(plot, supply) {
   return lines.join("\n");
 }
 
+// Swaps the head, keeping where it stands, its aim and its setups (QuickLamps.swift swapHead).
+function swapHead(item, l) {
+  var old = lamp(item), wasGrip = old ? old.isGrip : false;
+  item.lampID = l.id;
+  if (l.modifiers.indexOf(item.modifier) < 0) item.modifier = l.modifiers[0];
+  if (l.cct) item.cct = Math.min(l.cct[1], Math.max(l.cct[0], item.cct));
+  if (l.isGrip !== wasGrip) { item.angle += l.isGrip ? 90 : -90; item.role = l.isGrip ? "diff" : "fill"; }
+}
+
+// A 4x4 of 216 in front of the head, square to its beam (Plot.addDiff).
+function addDiff(plot, index) {
+  var it = plot.items[index], reach = Math.min(.9, Math.max(.5, dist(it, plot.talent) * .4)), a = it.angle * Math.PI / 180;
+  var f = { id: uuid(), lampID: "f4d", x: it.x + reach * Math.cos(a), y: it.y + reach * Math.sin(a), angle: it.angle + 90, role: "diff", cct: 0, output: 100, modifier: STANDARD, gel: "None", offIn: [] };
+  if (it.height != null) f.height = it.height;
+  plot.items.splice(index + 1, 0, f);
+  return f;
+}
+
+// The heads a gaffer reaches for most (QuickLamps.ids); recents go first.
+var QUICK = ["a600", "a1200", "m18", "forza", "s60", "s30", "gem", "titan", "helios", "china", "f8d", "floppy"];
+
 root.Lampwerk = {
+  swapHead: swapHead, addDiff: addDiff, QUICK: QUICK, MOD_BEAM: MOD_BEAM,
   LIB: LIB, BYID: BYID, GELS: GELS, ROLES: ROLES, SHOTS: SHOTS, GROUPS: GROUPS, REGIONS: REGIONS, STARTERS: STARTERS,
   MATERIALS: MATERIALS, WARN_SHARE: WARN_SHARE,
   lamp: lamp, isOn: isOn, lightsOn: lightsOn, dist: dist, bearing: bearing, angleBetween: angleBetween,
