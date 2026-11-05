@@ -1,0 +1,228 @@
+[
+  {
+    "camera" : {
+      "x" : 3,
+      "y" : 7.6
+    },
+    "id" : "BDA07DDF-6B42-4294-97E9-EFB2893B615B",
+    "items" : [
+      {
+        "angle" : 13.24051991518721,
+        "cct" : 5600,
+        "gel" : "None",
+        "id" : "AC9823DC-E8A7-401A-9AD6-93A4ACA9E43B",
+        "lampID" : "m18",
+        "modifier" : "8x8 full grid",
+        "name" : "Window key",
+        "offIn" : [
+
+        ],
+        "output" : 100,
+        "role" : "key",
+        "x" : -0.4,
+        "y" : 3.6
+      },
+      {
+        "angle" : 103.49573328079583,
+        "cct" : 5600,
+        "gel" : "None",
+        "id" : "18C9F39F-D8FB-4DFD-A7B1-BB3A184785C2",
+        "lampID" : "f12",
+        "modifier" : "Full grid cloth",
+        "offIn" : [
+
+        ],
+        "output" : 100,
+        "role" : "diff",
+        "x" : 0.5,
+        "y" : 3.8
+      },
+      {
+        "angle" : -143.13010235415598,
+        "cct" : 2700,
+        "gel" : "None",
+        "id" : "FE965682-8159-420C-93F6-6AFBCAF46C0A",
+        "lampID" : "lamp",
+        "modifier" : "None",
+        "offIn" : [
+          "close"
+        ],
+        "output" : 100,
+        "role" : "practical",
+        "x" : 4.6,
+        "y" : 5.6
+      },
+      {
+        "angle" : 257.4711922908485,
+        "cct" : 5600,
+        "gel" : "None",
+        "id" : "51E6E038-09F8-4160-87C2-AF69681F270C",
+        "lampID" : "f4",
+        "modifier" : "None",
+        "offIn" : [
+
+        ],
+        "output" : 100,
+        "role" : "fill",
+        "x" : 4.8,
+        "y" : 4
+      },
+      {
+        "angle" : 130.8150838748816,
+        "cct" : 5600,
+        "gel" : "½ CTB",
+        "id" : "AA59AE63-733F-492C-A7D8-F93317E72D1A",
+        "lampID" : "s60",
+        "modifier" : "None",
+        "offIn" : [
+          "wide"
+        ],
+        "output" : 50,
+        "role" : "back",
+        "x" : 4.9,
+        "y" : 2.2
+      }
+    ],
+    "name" : "Int. kitchen, night",
+    "number" : 3,
+    "roomDepth" : 8.4,
+    "roomWidth" : 6,
+    "shot" : "wide",
+    "starter" : "window",
+    "talent" : {
+      "x" : 3,
+      "y" : 4.4
+    },
+    "updated" : 815564461.486409
+  },
+  {
+    "camera" : {
+      "x" : 3,
+      "y" : 7.6
+    },
+    "id" : "946E30DF-3089-4B67-BCDF-BC232AC5A243",
+    "items" : [
+      {
+        "angle" : 37.87498365109821,
+        "cct" : 5600,
+        "gel" : "None",
+        "id" : "E391D84F-3843-4933-B236-C43A2F5BFA3C",
+        "lampID" : "a600",
+        "modifier" : "None",
+        "offIn" : [
+
+        ],
+        "output" : 80,
+        "role" : "key",
+        "x" : 1.2,
+        "y" : 3
+      },
+      {
+        "angle" : -83.29016319224311,
+        "cct" : 5600,
+        "gel" : "None",
+        "id" : "D3942814-9113-48FC-AD61-0A20EAB8B7AC",
+        "lampID" : "f4",
+        "modifier" : "None",
+        "offIn" : [
+
+        ],
+        "output" : 100,
+        "role" : "fill",
+        "x" : 4.7,
+        "y" : 4.6
+      },
+      {
+        "angle" : 121.32869286780416,
+        "cct" : 5600,
+        "gel" : "None",
+        "id" : "BE1A6AF8-3715-43CA-8DC2-D81521C4F4C2",
+        "lampID" : "s30",
+        "modifier" : "None",
+        "offIn" : [
+          "reverse"
+        ],
+        "output" : 60,
+        "role" : "back",
+        "x" : 4.4,
+        "y" : 2.1
+      }
+    ],
+    "name" : "Int. office, interview",
+    "number" : 2,
+    "roomDepth" : 8.4,
+    "roomWidth" : 6,
+    "shot" : "wide",
+    "starter" : "threePoint",
+    "talent" : {
+      "x" : 3,
+      "y" : 4.4
+    },
+    "updated" : 815564461.486412
+  },
+  {
+    "camera" : {
+      "x" : 3,
+      "y" : 7.6
+    },
+    "id" : "92B93FA0-BA0D-4685-B8AC-7121A58D4A89",
+    "items" : [
+      {
+        "angle" : 52.431407971172526,
+        "cct" : 4300,
+        "gel" : "None",
+        "id" : "F72F22A0-5A91-4C08-BDCB-A18671CC9A06",
+        "lampID" : "titan",
+        "modifier" : "None",
+        "offIn" : [
+
+        ],
+        "output" : 50,
+        "role" : "key",
+        "x" : 2,
+        "y" : 3.1
+      },
+      {
+        "angle" : 132.27368900609375,
+        "cct" : 4300,
+        "gel" : "None",
+        "id" : "28701DAC-FE69-4B13-B29E-1755BA22EAE0",
+        "lampID" : "helios",
+        "modifier" : "None",
+        "offIn" : [
+          "reverse"
+        ],
+        "output" : 25,
+        "role" : "fill",
+        "x" : 4,
+        "y" : 3.3
+      },
+      {
+        "angle" : -90,
+        "cct" : 2400,
+        "gel" : "None",
+        "id" : "F3648F22-7B71-410F-BEC9-56F8EE9AAF52",
+        "lampID" : "b7c",
+        "modifier" : "None",
+        "offIn" : [
+
+        ],
+        "output" : 60,
+        "role" : "practical",
+        "x" : 3,
+        "y" : 5.2
+      }
+    ],
+    "name" : "Ext. car, dusk",
+    "number" : 1,
+    "roomDepth" : 8.4,
+    "roomWidth" : 6,
+    "shot" : "wide",
+    "starter" : "car",
+    "talent" : {
+      "x" : 3,
+      "y" : 4.4
+    },
+    "updated" : 815564461.486415
+  }
+]
