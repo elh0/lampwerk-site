@@ -33,10 +33,10 @@ var RAW = [
   ["china","China ball","practical","Practicals","practical",150,300,[2700,5600],40,.5,.5],
   ["s360","SkyPanel S360-C","Arri","Panels","panel",1500,105,[2800,10000],60,1.2,.7],
   ["vtx24","Vortex24","Creamsource","Panels","panel",1300,110,[2200,15000],70,1.2,.32],
-  ["m40","M40","Arri","HMI","fresnel",4000,50,[5600,5600],90,.7,.6],
-  ["m90","M90","Arri","HMI","fresnel",9000,55,[5600,5600],90,1,.9],
+  ["m40","M40","Arri","HMI","fresnel",4000,30,[5600,5600],90,.7,.6],
+  ["m90","M90","Arri","HMI","fresnel",9000,49,[5600,5600],90,1,.9],
   ["h6","6K HMI par","generic","HMI","fresnel",6000,30,[5600,5600],90,.8,.65],
-  ["amax","ARRIMAX 18/12","Arri","HMI","fresnel",18000,40,[5600,5600],95,1.1,1],
+  ["amax","ARRIMAX 18/12","Arri","HMI","fresnel",18000,50,[5600,5600],95,1.1,1],
   ["t5k","5K Skypan","generic","Tungsten","panel",5000,100,[3200,3200],20,.9,.5],
   ["t10k","10K fresnel","generic","Tungsten","fresnel",10000,50,[3200,3200],22,.7,.6],
   ["t20k","20K fresnel","generic","Tungsten","fresnel",20000,50,[3200,3200],22,.9,.8],
@@ -63,7 +63,7 @@ var SPECS = {
   vtx:[2340,110,660,"maker"], orb:[2333,60,500,"maker"], titan:[87,135,48,"maker"], helios:[44,135,24,"maker"],
   pavo:[84,160,70,"maker"], b7c:[12,300,12,"maker"], m18:[23556,40,2000,"maker"], h12:[27222,30,1300,"estimate"],
   h4:[75667,30,5300,"maker"], h18:[80670,50,19400,"retailer"], t300:[500,55,300,"maker"], t650:[1194,54,650,"maker"],
-  t1k:[2033,54,1000,"retailer"], t2k:[4560,57,2000,"retailer"], red:[933,87,800,"retailer"], china:[18,300,150,"estimate"]
+  t1k:[2033,54,1000,"retailer"], m40:[72222,30,4000,"maker"], m90:[84333,49,9000,"maker"], amax:[142500,50,18000,"maker"], t2k:[4560,57,2000,"retailer"], red:[933,87,800,"retailer"], china:[18,300,150,"estimate"]
 };
 
 var MATERIALS = [
