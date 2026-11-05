@@ -306,7 +306,16 @@ function addDiff(plot, index) {
 // The heads a gaffer reaches for most (QuickLamps.ids); recents go first.
 var QUICK = ["a600", "a1200", "m18", "forza", "s60", "s30", "gem", "titan", "helios", "china", "f8d", "floppy"];
 
+// Light lost through a diff material, as a gaffer says it: "1½ stops" (Diffusion.stops).
+function stopsText(m) {
+  var s = Math.round(Math.log2(1 / m.pass) * 2) / 2, whole = Math.floor(s), half = s - whole >= .5;
+  var t = whole === 0 ? (half ? "½" : "0") : whole + (half ? "½" : "");
+  return t + (s === 1 ? " stop" : " stops");
+}
+var FRAMES = ["f4d", "f6", "f8d", "f12", "f20d"];
+
 root.Lampwerk = {
+  stopsText: stopsText, FRAMES: FRAMES,
   swapHead: swapHead, addDiff: addDiff, QUICK: QUICK, MOD_BEAM: MOD_BEAM,
   LIB: LIB, BYID: BYID, GELS: GELS, ROLES: ROLES, SHOTS: SHOTS, GROUPS: GROUPS, REGIONS: REGIONS, STARTERS: STARTERS,
   MATERIALS: MATERIALS, WARN_SHARE: WARN_SHARE,

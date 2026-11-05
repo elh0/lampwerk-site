@@ -132,6 +132,12 @@ function render(svg, plot, opts) {
     sp.textContent = l.isLight ? l.shortName + " · " + Math.round(it.cct) + " K" : l.shortName;
   });
 
+  // A grip in the middle of each wall: drag it to size the room from that side.
+  if (live) [["right", RW, RD / 2, true], ["left", 0, RD / 2, true], ["bottom", RW / 2, RD, false], ["top", RW / 2, 0, false]].forEach(function (w) {
+    var gw = w[3] ? .12 : .5, gh = w[3] ? .5 : .12, g = el("g", { "data-kind": "wall", "data-wall": w[0], style: "cursor:" + (w[3] ? "ew-resize" : "ns-resize") }, svg);
+    el("rect", { x: w[1] - .35, y: w[2] - .35, width: .7, height: .7, fill: "transparent" }, g);
+    el("rect", S({ x: w[1] - gw / 2, y: w[2] - gh / 2, width: gw, height: gh, rx: .05, fill: "#1D1D1B", stroke: P.muted, "stroke-width": 1 }), g);
+  });
   if (live) group.forEach(function (id) { var g = itemById(id); if (g) el("circle", S({ cx: g.x, cy: g.y, r: .38, fill: "none", stroke: GEL, "stroke-width": 1.2, "pointer-events": "none" }), svg); });
   if (live && lasso) el("rect", S({ x: Math.min(lasso.a.x, lasso.b.x), y: Math.min(lasso.a.y, lasso.b.y), width: Math.abs(lasso.a.x - lasso.b.x), height: Math.abs(lasso.a.y - lasso.b.y), fill: "rgba(255,194,26,.06)", stroke: GEL, "stroke-width": 1, "stroke-dasharray": "4 3", "pointer-events": "none" }), svg);
   if (live && sel) {
@@ -159,7 +165,8 @@ plan.addEventListener("pointerdown", function (e) {
   if (!cur) return;
   var t = e.target.closest("[data-id],[data-kind]");
   var p = svgPoint(e);
-  plan.setPointerCapture(e.pointerId);
+  // Keep the drag even when the pointer leaves the plan; some browsers refuse for touch or pen, which is fine.
+  try { plan.setPointerCapture(e.pointerId); } catch (err) {}
   e.preventDefault();
   if (!t) {
     // Empty floor: drop the armed lamp, box with shift, otherwise move around the plan.
@@ -168,7 +175,8 @@ plan.addEventListener("pointerdown", function (e) {
     drag = { kind: "pan", sx: e.clientX, sy: e.clientY, px: pan.x, py: pan.y, scale: plan.getScreenCTM().a };
     return;
   }
-  if (t.dataset.kind === "handle") drag = { kind: "aim" };
+  if (t.dataset.kind === "wall") drag = { kind: "wall", wall: t.dataset.wall, vb: plan.getAttribute("viewBox"), ctm: plan.getScreenCTM().inverse() };
+  else if (t.dataset.kind === "handle") drag = { kind: "aim" };
   else if (t.dataset.kind === "talent" || t.dataset.kind === "camera") drag = { kind: t.dataset.kind, dx: p.x - cur[t.dataset.kind].x, dy: p.y - cur[t.dataset.kind].y };
   else {
     var it = itemById(t.dataset.id);
@@ -192,6 +200,25 @@ plan.addEventListener("pointermove", function (e) {
   }
   drag.moved = true;
   if (drag.kind === "lasso") { lasso.b = p; render(plan, cur, { live: true }); return; }
+  if (drag.kind === "wall") {
+    // Measured against the view as it was when the drag began, so the room doesn't slide under the pointer.
+    var sp = plan.createSVGPoint(); sp.x = e.clientX; sp.y = e.clientY; var q = sp.matrixTransform(drag.ctm);
+    var things = cur.items.concat([cur.talent, cur.camera]), r4 = function (v) { return Math.round(v * 4) / 4; };
+    if (drag.wall === "right") cur.roomWidth = r4(Math.min(60, Math.max(1.5, q.x, Math.max.apply(null, things.map(function (o) { return o.x; })) + .3)));
+    else if (drag.wall === "bottom") cur.roomDepth = r4(Math.min(60, Math.max(1.5, q.y, Math.max.apply(null, things.map(function (o) { return o.y; })) + .3)));
+    else {
+      // Left and top move the room's corner, so everything shifts to keep its place on the floor.
+      var ax = drag.wall === "left" ? "x" : "y", size = ax === "x" ? "roomWidth" : "roomDepth";
+      var most = Math.min(cur[size] - 1.5, Math.min.apply(null, things.map(function (o) { return o[ax]; })) - .3);
+      var shift = r4(Math.min(most, q[ax] - (drag.moved2 || 0)));
+      if (shift !== 0) {
+        cur[size] -= shift; things.forEach(function (o) { o[ax] = round2(o[ax] - shift); });
+        drag.moved2 = (drag.moved2 || 0) + shift;
+        pan[ax] += shift;
+      }
+    }
+    refresh(true); return;
+  }
   if (drag.kind === "group") drag.starts.forEach(function (s) { s.g.x = round2(s.x + p.x - drag.from.x); s.g.y = round2(s.y + p.y - drag.from.y); });
   else if (drag.kind === "aim") { var it = itemById(sel); it.angle = round2(W.bearing(it, p)); }
   else if (drag.kind === "lamp") { var m = itemById(sel); m.x = round2(p.x - drag.dx); m.y = round2(p.y - drag.dy); }
@@ -408,13 +435,17 @@ function renderDock() {
     var i = cur.items.indexOf(it), on = W.isOn(cur, it), frame = l.isLight ? W.diffFrame(it, cur) : null, seen = hintSeen();
     bar.innerHTML = '<div class="lampbar"><span class="nm"><b>' + String(i + 1).padStart(2, "0") + ' ' + esc(l.shortName) + '</b>' + (seen < 5 ? '<small>pick a lamp below to swap</small>' : "") + '</span>' +
       (l.isLight ? '<button class="b' + (on ? " on" : "") + '" id="lb-on" type="button">' + (on ? "On" : "Off") + '</button>' : "") +
-      (l.modifiers.length > 1 ? '<select id="lb-mod" aria-label="Modifier">' + l.modifiers.map(function (m) { var bm = W.MOD_BEAM[m] != null ? W.MOD_BEAM[m] : l.beam; return '<option value="' + esc(m) + '"' + (m === it.modifier ? " selected" : "") + '>' + esc(m === "None" ? "Bare" : m) + (l.kind === "diff" ? "" : " · " + (bm >= 300 ? "all round" : bm + "°")) + '</option>'; }).join("") + '</select>' : "") +
-      (l.isLight && W.spread(it, cur) < 300 ? (frame ? '<button class="b" id="lb-diff" type="button">Remove diff</button>' : '<button class="b" id="lb-diff" type="button">+ Diff</button>') : "") +
+      (l.kind === "diff" ? diffControls(it, false) : l.modifiers.length > 1 ? '<select id="lb-mod" aria-label="Modifier">' + l.modifiers.map(function (m) { var bm = W.MOD_BEAM[m] != null ? W.MOD_BEAM[m] : l.beam; return '<option value="' + esc(m) + '"' + (m === it.modifier ? " selected" : "") + '>' + esc(m === "None" ? "Bare" : m) + (l.kind === "diff" ? "" : " · " + (bm >= 300 ? "all round" : bm + "°")) + '</option>'; }).join("") + '</select>' : "") +
+      (l.isLight && W.spread(it, cur) < 300 ? (frame ? diffControls(frame, true) : '<button class="b" id="lb-diff" type="button">+ Diff</button>') : "") +
       '<button class="b" id="lb-del" type="button" aria-label="Delete lamp">Delete</button></div>';
     if (!renderDock.last || renderDock.last !== it.id) { renderDock.last = it.id; hintSeen(seen + 1); }
     if ($("#lb-on")) $("#lb-on").onclick = function () { var o = it.offIn || (it.offIn = []), k = o.indexOf(cur.shot); if (k < 0) o.push(cur.shot); else o.splice(k, 1); save(); refresh(); };
     if ($("#lb-mod")) $("#lb-mod").onchange = function () { it.modifier = this.value; save(); refresh(); };
-    if ($("#lb-diff")) $("#lb-diff").onclick = function () { if (frame) cur.items.splice(cur.items.indexOf(frame), 1); else W.addDiff(cur, i); save(); refresh(); };
+    if ($("#lb-diff")) $("#lb-diff").onclick = function () { W.addDiff(cur, i); save(); refresh(); };
+    var df = l.kind === "diff" ? it : frame;
+    if ($("#lb-dmat")) $("#lb-dmat").onchange = function () { df.modifier = this.value; save(); refresh(); };
+    if ($("#lb-dsize")) $("#lb-dsize").onchange = function () { df.lampID = this.value; save(); refresh(); };
+    if ($("#lb-dx")) $("#lb-dx").onclick = function () { cur.items.splice(cur.items.indexOf(frame), 1); save(); refresh(); };
     $("#lb-del").onclick = removeSel;
   }
   var q = $("#quick"); q.innerHTML = "";
@@ -434,6 +465,16 @@ function renderDock() {
     : "Click a lamp to pick it · drag to move · drag the dot to aim · drag the floor to look around · shift-drag to box · Delete removes";
 }
 var showLibraryFor = false;
+
+/* A diff frame's material (with the stops it costs) and size; on a lamp's bar, a remove button too. */
+function diffControls(frame, onLamp) {
+  var mat = W.material(frame);
+  return '<span class="dgroup"><span class="dlabel">Diff</span><select id="lb-dmat" aria-label="Diffusion material">' +
+    W.MATERIALS.map(function (m) { return '<option value="' + esc(m.name) + '"' + (m.name === mat.name ? " selected" : "") + '>' + esc(m.name) + ' · ' + W.stopsText(m) + '</option>'; }).join("") +
+    '</select><select id="lb-dsize" aria-label="Frame size">' +
+    W.FRAMES.map(function (id) { return '<option value="' + id + '"' + (id === frame.lampID ? " selected" : "") + '>' + W.BYID[id].name.split(" ")[0] + '</option>'; }).join("") +
+    '</select>' + (onLamp ? '<button class="b" id="lb-dx" type="button" aria-label="Remove the diffusion">✕</button>' : "") + '</span>';
+}
 function hintSeen(v) { try { if (v == null) return +(localStorage.getItem("lampwerk-web-swaphint") || 0); localStorage.setItem("lampwerk-web-swaphint", v); } catch (e) { return 9; } }
 
 /* Floor plans stay in this browser (not in plots.json), squeezed to a small JPEG so they fit. */
@@ -523,7 +564,7 @@ function refresh(light) {
   renderDock();
   if (light) return;
   $("#plot-name").value = cur.name;
-  $("#room").textContent = cur.roomWidth + " × " + cur.roomDepth + " m";
+  $("#room-w").value = cur.roomWidth; $("#room-d").value = cur.roomDepth;
   renderShots();
   renderInspector();
   renderPlots();
@@ -560,6 +601,14 @@ function renderSupply() {
 }
 $("#region").onchange = function () { supply = { region: this.value, circuitAmps: W.REGIONS[this.value].standard }; saveSupply(); renderSupply(); refresh(); };
 $("#breaker").onchange = function () { supply.circuitAmps = +this.value; saveSupply(); refresh(); };
+/* Typed sizes are kept as typed (to the centimetre), within 1.5 to 60 m. */
+function setRoom(w, d) {
+  cur.roomWidth = Math.round(Math.max(1.5, Math.min(60, w)) * 100) / 100;
+  cur.roomDepth = Math.round(Math.max(1.5, Math.min(60, d)) * 100) / 100;
+  save(); refresh();
+}
+$("#room-w").onchange = function () { var v = parseFloat(this.value); if (v > 0) setRoom(v, cur.roomDepth); };
+$("#room-d").onchange = function () { var v = parseFloat(this.value); if (v > 0) setRoom(cur.roomWidth, v); };
 $("#plot-name").onchange = function () { var v = this.value.trim(); if (v) { cur.name = v; save(); refresh(); } };
 $("#new").onclick = newPlotFlow;
 $("#export").onclick = function () { download("plots.json", Store.exportJSON(), "application/json"); };

@@ -158,3 +158,9 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 }
 
 .credit{margin:0;padding:0 12px 10px;font:10px var(--mono);color:var(--faint)}
+
+.room{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:13px}
+.room input{width:4.6em;height:28px;font-family:var(--mono);text-align:right}
+.dgroup{display:flex;align-items:center;gap:4px;padding:2px 4px 2px 8px;border-radius:7px;background:var(--p3)}
+.dlabel{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--quiet)}
+.dgroup select{height:28px}
