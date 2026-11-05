@@ -31,6 +31,20 @@ var RAW = [
   ["red","Redhead 800W","generic","Tungsten","point",800,87,[3200,3200],20,.26,.22],
   ["lamp","Table lamp","practical","Practicals","practical",60,300,[2700,2700],15,.3,.3],
   ["china","China ball","practical","Practicals","practical",150,300,[2700,5600],40,.5,.5],
+  ["s360","SkyPanel S360-C","Arri","Panels","panel",1500,105,[2800,10000],60,1.2,.7],
+  ["vtx24","Vortex24","Creamsource","Panels","panel",1300,110,[2200,15000],70,1.2,.32],
+  ["m40","M40","Arri","HMI","fresnel",4000,50,[5600,5600],90,.7,.6],
+  ["m90","M90","Arri","HMI","fresnel",9000,55,[5600,5600],90,1,.9],
+  ["h6","6K HMI par","generic","HMI","fresnel",6000,30,[5600,5600],90,.8,.65],
+  ["amax","ARRIMAX 18/12","Arri","HMI","fresnel",18000,40,[5600,5600],95,1.1,1],
+  ["t5k","5K Skypan","generic","Tungsten","panel",5000,100,[3200,3200],20,.9,.5],
+  ["t10k","10K fresnel","generic","Tungsten","fresnel",10000,50,[3200,3200],22,.7,.6],
+  ["t20k","20K fresnel","generic","Tungsten","fresnel",20000,50,[3200,3200],22,.9,.8],
+  ["maxi","Maxi Brute, 9-light","generic","Big set","point",9000,30,[3200,3200],25,.9,.3],
+  ["dino","Dino, 24-light","generic","Big set","point",24000,30,[3200,3200],25,1.2,.4],
+  ["space6","Spacelight 6K","generic","Big set","practical",6000,300,[3200,3200],20,.9,.9],
+  ["ball4","Balloon light, 4K HMI","generic","Big set","practical",4000,300,[5600,5600],80,1.5,1.5],
+  ["ball8","Crane balloon, 8K HMI","generic","Big set","practical",8000,300,[5600,5600],80,2,2],
   ["f4","4x4 frame, ultra bounce","grip","Grip","bounce",0,0,null,0,1.2,.06],
   ["f4d","4x4 diff frame","grip","Grip","diff",0,0,null,0,1.2,.06],
   ["f6","6x6 diff frame","grip","Grip","diff",0,0,null,0,1.8,.06],
@@ -71,7 +85,7 @@ var KIND_MODS = { panel:["None","Snapgrid 40°","Softbox"], point:["None","Dome 
 
 var ROLES = ["key","fill","back","kicker","practical","diff","neg"];
 var SHOTS = ["wide","close","reverse"];
-var GROUPS = ["Panels","Point source","Tubes","HMI","Tungsten","Practicals","Grip"];
+var GROUPS = ["Panels","Point source","Tubes","HMI","Tungsten","Practicals","Big set","Grip"];
 
 var LIB = RAW.map(function (r) {
   var l = { id:r[0], name:r[1], brand:r[2], group:r[3], kind:r[4], watts:r[5], beam:r[6], cct:r[7], efficacy:r[8], width:r[9], depth:r[10] };
